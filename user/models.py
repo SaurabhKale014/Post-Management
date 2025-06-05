@@ -1,9 +1,15 @@
 from django.db import models
 
 class UserProfile(models.Model):
+    ROLE_CHOICES=[
+        ('employee','Employee'),
+        ('owner','Owner')
+    ]
     username = models.CharField(max_length=100, unique=True)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=255)
+    role=models.CharField(max_length=10,choices=ROLE_CHOICES,default='employee')
+    is_admin = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'userProfiles'

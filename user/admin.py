@@ -1,3 +1,9 @@
 from django.contrib import admin
+from .models import UserProfile,Post
 
-# Register your models here.
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('username', 'email', 'role', 'is_admin')
+    list_editable = ('role', 'is_admin')
+
+admin.register(Post)
