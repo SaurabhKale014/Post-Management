@@ -82,6 +82,7 @@ DATABASES = {
         'PASSWORD': 'Saurabh2014',
         'HOST': 'localhost',
         'PORT': '3306',
+        
     }
 }
 
@@ -134,4 +135,13 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ]
+}
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),  # Access token expires in 5 mins
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),    # Refresh token expires in 7 days
+    'ROTATE_REFRESH_TOKENS': True,                  # New refresh token on refresh
+    'BLACKLIST_AFTER_ROTATION': True,               # Blacklist old refresh tokens
+    'UPDATE_LAST_LOGIN': True,                      # Update user's last login time
 }

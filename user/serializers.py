@@ -13,14 +13,14 @@ class RegisterSerializer(serializers.ModelSerializer):
         return super().create(validated_data)
 
 class LoginSerializer(serializers.Serializer):
-    username = serializers.CharField()
+    email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
 
     def validate(self, data):
         try:
-            user = UserProfile.objects.get(username=data['username'])
+            user = UserProfile.objects.get(email=data['email'])
         except UserProfile.DoesNotExist:
-            raise serializers.ValidationError("User not found")
+            raise serializers.ValidationError("User with this email not found")
 
         if not check_password(data['password'], user.password):
             raise serializers.ValidationError("Incorrect password")
@@ -29,7 +29,9 @@ class LoginSerializer(serializers.Serializer):
         return data
 
 class PostSerializer(serializers.ModelSerializer):
+    Post_id=serializers.IntegerField(source='id',read_only=True)
     class Meta:
         model = Post
-        fields = ['id','title', 'content', 'image']
+        fields = ['Post_id','title', 'content', 'image']
+    
      
